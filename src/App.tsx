@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import TodoInput from './features/todo/TodoInput';
+import TodoList from './features/todo/TodoList';
+import useTodo from './hooks/todo/useTodo';
+import useFilter from './hooks/todo/useFilter';
 
 function App() {
+  const {todos, handleSubmit, handleEdit, handleCheck, handleDelete }  = useTodo()
+  const {filter, handleFilter} = useFilter()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='header'>
+      </div>
+      <div className='container w-50 mb-3'>
+        <TodoInput handleFilter={handleFilter} handleSubmit={handleSubmit}></TodoInput>
+        <TodoList todos = {todos} filter={filter} handleCheck = {handleCheck} handleDelete={handleDelete} handleEdit={handleEdit}></TodoList>
+      </div>
     </div>
   );
 }
