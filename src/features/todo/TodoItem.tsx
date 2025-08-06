@@ -1,12 +1,12 @@
+import { useContext } from "react";
 import {Todo} from "../../types"
+import { TodoContext } from "./providers/TodoContext";
 type Props = {
     todo: Todo;
-    handleCheck: (id: number, e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleEdit: (id: number, e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleDelete: (id: number) => void;
 }
 
-export default function TodoItem({todo, handleCheck, handleEdit, handleDelete}: Props) {
+export default function TodoItem({todo}: Props) {
+    const {handleCheck, handleEdit, handleDelete} = useContext(TodoContext)!
     return (
         <>
             <div
@@ -15,7 +15,7 @@ export default function TodoItem({todo, handleCheck, handleEdit, handleDelete}: 
               <input
                 type="checkbox"
                 checked={todo.isFinished}
-                onChange={(e) => handleCheck(todo.id, e)}
+                onChange={(e) => handleCheck(todo.id)}
                 className="me-2"
               />
               <input

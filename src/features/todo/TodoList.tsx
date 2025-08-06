@@ -1,15 +1,15 @@
+import { useContext } from 'react';
 import TodoItem from '../../features/todo/TodoItem';
 import {Todo} from "../../types"
+import { TodoContext } from './providers/TodoContext';
 
 type Props = {
-    todos: Todo[];
     filter: string;
-    handleCheck: (id: number, e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleEdit: (id: number, e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleDelete: (id: number) => void;
+  
 }
 
-export default function TodoList({todos ,filter, handleCheck, handleEdit, handleDelete}: Props) {
+export default function TodoList({filter}: Props) {
+  const {todos} = useContext(TodoContext)!
     const filteredTodos = todos.filter((todo) => {
         if(filter === "all"){
           return true
@@ -29,7 +29,7 @@ export default function TodoList({todos ,filter, handleCheck, handleEdit, handle
         <div className="container w-75 mt-5">
             <div className='text-end'>未完了タスク：{todos.filter((todo) => !todo.isFinished).length}</div>
             {filteredTodos.map((todo) => (
-            <TodoItem key={todo.id} todo = {todo} handleCheck = {handleCheck} handleDelete={handleDelete} handleEdit={handleEdit}></TodoItem>
+            <TodoItem key={todo.id} todo = {todo}></TodoItem>
             ))}
         </div>
         </>
